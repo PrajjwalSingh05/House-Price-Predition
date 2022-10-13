@@ -6,7 +6,7 @@ import pandas as pd
 from joblib import load
 from PIL import Image
 def load_model():
-    return load('model/housing_model.jb')
+    return load('Model/housing_model.jb')
 st.set_page_config(
     page_title="House Price Prediction",
     layout='centered',
@@ -38,11 +38,11 @@ def introduction():
     st.markdown("**Datset used**")
     st.caption("Datset used")
  
-    df=load('model/original_data.jb')
+    df=load('Model/original_data.jb')
     # df=pd.read_csv(url)
     st.write(df)
     st.write("DAta Used FOr Maximum Accuracy:")
-    clean_data=load('model/data.jb')
+    clean_data=load('Model/data.jb')
     st.write(clean_data)
     st.caption("About The Data")
     st.write(	
@@ -119,7 +119,7 @@ def introduction():
     # st.write("Time->Months Since The First Donation")
 def execute():
     with st.form("form1",clear_on_submit=True):
-        df=load('model/data.jb')
+        df=load('Model/data.jb')
         st.write("The MAximum Accuracy Of the Model is :87%")
         OverallQual=st.number_input("OverallQual: Rates the overall material and finish of the house",min_value=0,max_value=10,step=1)
         YearBuild=st.number_input("YearBuilt: Original construction date",min_value=1900,max_value=2050,step=20)
