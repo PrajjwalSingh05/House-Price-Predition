@@ -1,6 +1,7 @@
 from asyncore import write
 from distutils.command.clean import clean
 import streamlit as st
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from joblib import load
@@ -113,17 +114,26 @@ def introduction():
        RFn	Rough Finished	
        Unf	Unfinished
        NA	No Garage''')
-    # st.write("Recency->Months Since The Last Donation")
-    # st.write("Frequency->Total Number of Donation")
-    # st.write("Monerty ->Total Blood Donated in c.c")
-    # st.write("Time->Months Since The First Donation")
 def execute():
+    result=0.8593430129872129
+    non_result=1-result
+    legend=["Accuracy","Not Accurate"]
+    sizes = np.array([result,non_result])
+    fig1, ax1 = plt.subplots(figsize=(5,5))
+    colour=["blue","purple"]
+    # colour=["black","grey"]
+    ax1.pie(sizes, labels=legend, colors=colour,autopct='%1.1f%%',
+            shadow=True, startangle=90)
+    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+    st.sidebar.write("The Maximum Accuracy Of the Model is :85.9%")
+    st.sidebar.pyplot(fig1, )
     with st.form("form1",clear_on_submit=True):
         df=load('Model/data.jb')
-        st.write("The MAximum Accuracy Of the Model is :87%")
+        # st.write("The MAximum Accuracy Of the Model is :87%")
         OverallQual=st.number_input("OverallQual: Rates the overall material and finish of the house",min_value=0,max_value=10,step=1)
         YearBuild=st.number_input("YearBuilt: Original construction date",min_value=1900,max_value=2050,step=20)
-        YearRemodAdd=st.number_input("Monerty ( total blood donated in c.c)",min_value=1900,max_value=2050,step=20)
+        YearRemodAdd=st.number_input("YearRemodAdd: Remodel date of the House",min_value=1900,max_value=2050,step=20)
         TotalBsmtSF=st.number_input("TotalBsmtSF: Total square feet of basement area",min_value=0,max_value=2000,step=20)
         first_FlrSF=st.number_input("1stFlrSF: First Floor square feet",min_value=0,max_value=2000,step=20)
         GrLivArea=st.number_input(" GrLivArea: Above grade (ground) living area square feet",min_value=0,max_value=2000,step=20)
